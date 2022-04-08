@@ -109,13 +109,9 @@ class Simulation extends PerformanceTestRunner {
 
   setup("submit-generate", "Get/Post check your answers and generate pages") withRequests (
     getCheckAnswersPage,
-    getNextStepPage
+    getNextStepPage,
+    getPrintFormPage
     )
-
-
-
-
-
 
   runSimulation()
 }

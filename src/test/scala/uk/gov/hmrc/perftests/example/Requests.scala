@@ -286,5 +286,9 @@ object Requests extends ServicesConfiguration {
       .get(s"$baseUrl$route/next-steps": String)
       .check(status.is(200))
 
+  val getPrintFormPage: HttpRequestBuilder =
+    http("Get Print Form Page")
+      .get(s"$baseUrl$route/print-form": String)
+      .check(status.is(200))
 
 }
