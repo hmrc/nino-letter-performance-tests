@@ -43,6 +43,78 @@ class Simulation extends PerformanceTestRunner {
     postCurrentAddressUKPage
     )
 
+  setup("current-address-page", "Get/Post current address page") withRequests (
+    getCurrentAddressPage,
+    postCurrentAddressPage
+    )
+
+  setup("previous-address-page", "Get/Post previous address page") withRequests (
+    getPreviousAddressPage,
+    postPreviousAddressPage
+    )
+  setup("living-abroad-page", "Get/Post living abroad page") withRequests (
+    getLivingAbroadPage,
+    postLivingAbroadPage
+    )
+
+  setup("telephone-number-page", "Get/Post telephone number page") withRequests (
+    getTelephoneNumberPage,
+    postTelephoneNumberPage
+    )
+
+  setup("nino-page", "Get/Post nino page") withRequests (
+    getNinoPage,
+    postNinoPage
+    )
+
+  setup("married-page", "Get/Post married page") withRequests (
+    getMarriedPage,
+    postMarriedPage
+    )
+
+  setup("civil-partnership-page", "Get/Post civil partnership page") withRequests (
+    getCivilPartnershipPage,
+    postCivilPartnershipPage
+    )
+
+  setup("marriage-civil-partnership-page", "Get/Post marriage civil partnership page") withRequests (
+    getMarriageCivilPartnershipPage,
+    postMarriageCivilPartnershipPage
+    )
+
+  setup("child-benefit-page", "Get/Post child benefit page") withRequests (
+    getChildBenefitPage,
+    postChildBenefitPage
+    )
+
+  setup("other-benefits-page", "Get/Post other benefits page") withRequests (
+    getOtherBenefitsPage,
+    postOtherBenefitsPage
+    )
+
+  setup("worked-in-uk-page", "Get/Post worked in uk page") withRequests (
+    getWorkedInUKPage,
+    postWorkedInUKPage
+    )
+
+  setup("doc-page", "Get/Post doc page") withRequests (
+    getDocPage,
+    postDocPage
+    )
+
+  setup("which-doc-page", "Get/Post which doc page") withRequests (
+    getWhichDocPage,
+    postWhichDocPage
+    )
+
+  setup("submit-generate", "Get/Post check your answers and generate pages") withRequests (
+    getCheckAnswersPage,
+    getNextStepPage
+    )
+
+
+
+
 
 
   runSimulation()

@@ -93,32 +93,198 @@ object Requests extends ServicesConfiguration {
       .check(status.is(303))
       .check(header("Location").is("/get-your-national-insurance-number-by-post/what-is-your-current-uk-address").saveAs("CurrentAddress"))
 
+  val getCurrentAddressPage: HttpRequestBuilder =
+    http("Get Current Address UK Page")
+      .get(s"$baseUrl$${CurrentAddress}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postCurrentAddressPage: HttpRequestBuilder =
+    http("Post Current Address UK Page")
+      .post(s"$baseUrl$${CurrentAddress}": String)
+      .formParam("addressLine1", "test")
+      .formParam("postcode", "NE98 1ZZ")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-have-any-previous-addresses").saveAs("PreviousAddress"))
 
+  val getPreviousAddressPage: HttpRequestBuilder =
+    http("Get Previous Address Page")
+      .get(s"$baseUrl$${PreviousAddress}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postPreviousAddressPage: HttpRequestBuilder =
+    http("Post Previous Address Page")
+      .post(s"$baseUrl$${PreviousAddress}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-returning-from-living-abroad").saveAs("LivingAbroad"))
 
+  val getLivingAbroadPage: HttpRequestBuilder =
+    http("Get Living Abroad Page")
+      .get(s"$baseUrl$${LivingAbroad}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postLivingAbroadPage: HttpRequestBuilder =
+    http("Post Living Abroad Page")
+      .post(s"$baseUrl$${LivingAbroad}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/what-is-your-telephone-number").saveAs("TelephoneNumber"))
 
+  val getTelephoneNumberPage: HttpRequestBuilder =
+    http("Get Telephone Number Page")
+      .get(s"$baseUrl$${TelephoneNumber}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postTelephoneNumberPage: HttpRequestBuilder =
+    http("Post Telephone Number Page")
+      .post(s"$baseUrl$${TelephoneNumber}": String)
+      .formParam("value", "62442")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-know-your-national-insurance-number").saveAs("Nino"))
 
+  val getNinoPage: HttpRequestBuilder =
+    http("Get Nino Page")
+      .get(s"$baseUrl$${Nino}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postNinoPage: HttpRequestBuilder =
+    http("Post Nino Page")
+      .post(s"$baseUrl$${Nino}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-married").saveAs("Married"))
 
+  val getMarriedPage: HttpRequestBuilder =
+    http("Get Telephone Number Page")
+      .get(s"$baseUrl$${Married}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postMarriedPage: HttpRequestBuilder =
+    http("Post Married Page")
+      .post(s"$baseUrl$${Married}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-in-a-civil-partnership").saveAs("CivilPartnership"))
 
+  val getCivilPartnershipPage: HttpRequestBuilder =
+    http("Get Civil Partnership Page")
+      .get(s"$baseUrl$${CivilPartnership}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postCivilPartnershipPage: HttpRequestBuilder =
+    http("Post Civil Partnership Page")
+      .post(s"$baseUrl$${CivilPartnership}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-been-in-a-previous-marriage-or-civil-partnership").saveAs("MarriageCivilPartnership"))
 
+  val getMarriageCivilPartnershipPage: HttpRequestBuilder =
+    http("Get Previous Marriage Or CivilPartnership Page")
+      .get(s"$baseUrl$${MarriageCivilPartnership}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postMarriageCivilPartnershipPage: HttpRequestBuilder =
+    http("Post Previous Marriage Or CivilPartnership Page")
+      .post(s"$baseUrl$${MarriageCivilPartnership}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-claimed-child-benefit").saveAs("ChildBenefit"))
 
+  val getChildBenefitPage: HttpRequestBuilder =
+    http("Get ChildBenefit Page")
+      .get(s"$baseUrl$${ChildBenefit}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postChildBenefitPage: HttpRequestBuilder =
+    http("Post ChildBenefit Page")
+      .post(s"$baseUrl$${ChildBenefit}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-received-other-uk-benefits").saveAs("OtherBenefits"))
 
+  val getOtherBenefitsPage: HttpRequestBuilder =
+    http("Get Other Benefits Page")
+      .get(s"$baseUrl$${OtherBenefits}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postOtherBenefitsPage: HttpRequestBuilder =
+    http("Post Other Benefits Page")
+      .post(s"$baseUrl$${OtherBenefits}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-worked-in-uk").saveAs("WorkedInUK"))
 
+  val getWorkedInUKPage: HttpRequestBuilder =
+    http("Get Worked In UK Page")
+      .get(s"$baseUrl$${WorkedInUK}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postWorkedInUKPage: HttpRequestBuilder =
+    http("Post Worked In UK Page")
+      .post(s"$baseUrl$${WorkedInUK}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-have-an-identity-document").saveAs("Doc"))
 
+  val getDocPage: HttpRequestBuilder =
+    http("Get Doc Page")
+      .get(s"$baseUrl$${Doc}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postDocPage: HttpRequestBuilder =
+    http("Post Worked In UK Page")
+      .post(s"$baseUrl$${Doc}": String)
+      .formParam("value", "true")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/which-identity-document-do-you-have").saveAs("WhichDoc"))
 
+  val getWhichDocPage: HttpRequestBuilder =
+    http("Get Which Doc Page")
+      .get(s"$baseUrl$${WhichDoc}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val postWhichDocPage: HttpRequestBuilder =
+    http("Post Which Doc Page")
+      .post(s"$baseUrl$${WhichDoc}": String)
+      .formParam("value", "birth-certificate")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is("/get-your-national-insurance-number-by-post/check-your-answers").saveAs("CheckAnswers"))
 
+  val getCheckAnswersPage: HttpRequestBuilder =
+    http("Get Check Answers Page")
+      .get(s"$baseUrl$${CheckAnswers}": String)
+      .check(status.is(200))
+
+  val getNextStepPage: HttpRequestBuilder =
+    http("Get Check Answers Page")
+      .get(s"$baseUrl$route/next-steps": String)
+      .check(status.is(200))
 
 
 }
