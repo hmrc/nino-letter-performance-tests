@@ -72,11 +72,6 @@ class Simulation extends PerformanceTestRunner {
     postMarriedPage
     )
 
-  setup("civil-partnership-page", "Get/Post civil partnership page") withRequests (
-    getCivilPartnershipPage,
-    postCivilPartnershipPage
-    )
-
   setup("marriage-civil-partnership-page", "Get/Post marriage civil partnership page") withRequests (
     getMarriageCivilPartnershipPage,
     postMarriageCivilPartnershipPage

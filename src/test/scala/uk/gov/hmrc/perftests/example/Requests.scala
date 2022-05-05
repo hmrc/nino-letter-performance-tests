@@ -165,7 +165,7 @@ object Requests extends ServicesConfiguration {
       .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-married").saveAs("Married"))
 
   val getMarriedPage: HttpRequestBuilder =
-    http("Get Telephone Number Page")
+    http("Get Married Or Civil Partnership Number Page")
       .get(s"$baseUrl$${Married}": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
@@ -173,20 +173,6 @@ object Requests extends ServicesConfiguration {
   val postMarriedPage: HttpRequestBuilder =
     http("Post Married Page")
       .post(s"$baseUrl$${Married}": String)
-      .formParam("value", "false")
-      .formParam("csrfToken", s"$${csrfToken}")
-      .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-in-a-civil-partnership").saveAs("CivilPartnership"))
-
-  val getCivilPartnershipPage: HttpRequestBuilder =
-    http("Get Civil Partnership Page")
-      .get(s"$baseUrl$${CivilPartnership}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postCivilPartnershipPage: HttpRequestBuilder =
-    http("Post Civil Partnership Page")
-      .post(s"$baseUrl$${CivilPartnership}": String)
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
