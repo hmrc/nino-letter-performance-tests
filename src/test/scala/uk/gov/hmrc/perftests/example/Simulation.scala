@@ -38,6 +38,11 @@ class Simulation extends PerformanceTestRunner {
     postDOBPage
     )
 
+  setup("what-is-your-gender-page", "Get/Post what is your gender page") withRequests (
+    getGenderPage,
+    postGenderPage
+    )
+
   setup("current-address-uk-page", "Get/Post current address uk page") withRequests (
     getCurrentAddressUKPage,
     postCurrentAddressUKPage

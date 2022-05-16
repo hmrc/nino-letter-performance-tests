@@ -25,7 +25,7 @@ object Requests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("national-insurance-number-letter-spike-frontend")
 
-  val route: String   = "/get-your-national-insurance-number-by-post"
+  val route: String   = "/fill-online/get-your-national-insurance-number-by-post"
 
   val navigateToHomePage: HttpRequestBuilder =
     http("Navigate to Start Page")
@@ -47,7 +47,7 @@ object Requests extends ServicesConfiguration {
       .formParam("lastName", "test")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-have-a-previous-name").saveAs("previousNamePage"))
+      .check(header("Location").is(s"$route/do-you-have-a-previous-name").saveAs("previousNamePage"))
 
   val getPreviousNamePage: HttpRequestBuilder =
     http("Get Previous Name Page")
@@ -61,7 +61,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/what-is-your-date-of-birth").saveAs("dateOfBirthPage"))
+      .check(header("Location").is(s"$route/what-is-your-date-of-birth").saveAs("dateOfBirthPage"))
 
   val getDOBPage: HttpRequestBuilder =
     http("Get Date Of Birth Page")
@@ -77,7 +77,21 @@ object Requests extends ServicesConfiguration {
       .formParam("value.year", "2022")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/is-your-current-address-in-uk").saveAs("CurrentAddressUK"))
+      .check(header("Location").is(s"$route/what-is-your-gender").saveAs("WhatIsYourGender"))
+
+  val getGenderPage: HttpRequestBuilder =
+    http("Get What Is Your Gender")
+      .get(s"$baseUrl$${WhatIsYourGender}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postGenderPage: HttpRequestBuilder =
+    http("Post What Is Your Gender")
+      .post(s"$baseUrl$${WhatIsYourGender}": String)
+      .formParam("value", "preferNotToSay")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is(s"$route/is-your-current-address-in-uk").saveAs("CurrentAddressUK"))
 
   val getCurrentAddressUKPage: HttpRequestBuilder =
     http("Get Current Address UK Page")
@@ -91,7 +105,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "true")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/what-is-your-current-uk-address").saveAs("CurrentAddress"))
+      .check(header("Location").is(s"$route/what-is-your-current-uk-address").saveAs("CurrentAddress"))
 
   val getCurrentAddressPage: HttpRequestBuilder =
     http("Get Current Address UK Page")
@@ -106,7 +120,7 @@ object Requests extends ServicesConfiguration {
       .formParam("postcode", "NE98 1ZZ")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-have-any-previous-addresses").saveAs("PreviousAddress"))
+      .check(header("Location").is(s"$route/do-you-have-any-previous-addresses").saveAs("PreviousAddress"))
 
   val getPreviousAddressPage: HttpRequestBuilder =
     http("Get Previous Address Page")
@@ -120,7 +134,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-returning-from-living-abroad").saveAs("LivingAbroad"))
+      .check(header("Location").is(s"$route/are-you-returning-from-living-abroad").saveAs("LivingAbroad"))
 
   val getLivingAbroadPage: HttpRequestBuilder =
     http("Get Living Abroad Page")
@@ -134,7 +148,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/what-is-your-telephone-number").saveAs("TelephoneNumber"))
+      .check(header("Location").is(s"$route/what-is-your-telephone-number").saveAs("TelephoneNumber"))
 
   val getTelephoneNumberPage: HttpRequestBuilder =
     http("Get Telephone Number Page")
@@ -148,7 +162,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "62442")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-know-your-national-insurance-number").saveAs("Nino"))
+      .check(header("Location").is(s"$route/do-you-know-your-national-insurance-number").saveAs("Nino"))
 
   val getNinoPage: HttpRequestBuilder =
     http("Get Nino Page")
@@ -162,7 +176,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/are-you-married").saveAs("Married"))
+      .check(header("Location").is(s"$route/are-you-married").saveAs("Married"))
 
   val getMarriedPage: HttpRequestBuilder =
     http("Get Married Or Civil Partnership Number Page")
@@ -176,7 +190,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-been-in-a-previous-marriage-or-civil-partnership").saveAs("MarriageCivilPartnership"))
+      .check(header("Location").is(s"$route/have-you-been-in-a-previous-marriage-or-civil-partnership").saveAs("MarriageCivilPartnership"))
 
   val getMarriageCivilPartnershipPage: HttpRequestBuilder =
     http("Get Previous Marriage Or CivilPartnership Page")
@@ -190,7 +204,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-claimed-child-benefit").saveAs("ChildBenefit"))
+      .check(header("Location").is(s"$route/have-you-ever-claimed-child-benefit").saveAs("ChildBenefit"))
 
   val getChildBenefitPage: HttpRequestBuilder =
     http("Get ChildBenefit Page")
@@ -204,7 +218,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-received-other-uk-benefits").saveAs("OtherBenefits"))
+      .check(header("Location").is(s"$route/have-you-ever-received-other-uk-benefits").saveAs("OtherBenefits"))
 
   val getOtherBenefitsPage: HttpRequestBuilder =
     http("Get Other Benefits Page")
@@ -218,7 +232,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/have-you-ever-worked-in-uk").saveAs("WorkedInUK"))
+      .check(header("Location").is(s"$route/have-you-ever-worked-in-uk").saveAs("WorkedInUK"))
 
   val getWorkedInUKPage: HttpRequestBuilder =
     http("Get Worked In UK Page")
@@ -232,7 +246,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/do-you-have-an-identity-document").saveAs("Doc"))
+      .check(header("Location").is(s"$route/do-you-have-an-identity-document").saveAs("Doc"))
 
   val getDocPage: HttpRequestBuilder =
     http("Get Doc Page")
@@ -246,7 +260,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "true")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/which-identity-document-do-you-have").saveAs("WhichDoc"))
+      .check(header("Location").is(s"$route/which-identity-document-do-you-have").saveAs("WhichDoc"))
 
   val getWhichDocPage: HttpRequestBuilder =
     http("Get Which Doc Page")
@@ -260,7 +274,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "birth-certificate")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is("/get-your-national-insurance-number-by-post/check-your-answers").saveAs("CheckAnswers"))
+      .check(header("Location").is(s"$route/check-your-answers").saveAs("CheckAnswers"))
 
   val getCheckAnswersPage: HttpRequestBuilder =
     http("Get Check Answers Page")
