@@ -74,7 +74,7 @@ object Requests extends ServicesConfiguration {
       .post(s"$baseUrl$${dateOfBirthPage}": String)
       .formParam("value.day", "06")
       .formParam("value.month", "04")
-      .formParam("value.year", "2022")
+      .formParam("value.year", "2000")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
       .check(header("Location").is(s"$route/what-is-your-gender").saveAs("WhatIsYourGender"))
