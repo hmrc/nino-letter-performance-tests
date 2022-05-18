@@ -176,17 +176,17 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/are-you-married").saveAs("Married"))
+      .check(header("Location").is(s"$route/are-you-in-a-relationship").saveAs("Relationship"))
 
   val getMarriedPage: HttpRequestBuilder =
     http("Get Married Or Civil Partnership Number Page")
-      .get(s"$baseUrl$${Married}": String)
+      .get(s"$baseUrl$${Relationship}": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postMarriedPage: HttpRequestBuilder =
     http("Post Married Page")
-      .post(s"$baseUrl$${Married}": String)
+      .post(s"$baseUrl$${Relationship}": String)
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
