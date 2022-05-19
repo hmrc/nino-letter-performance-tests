@@ -43,6 +43,21 @@ class Simulation extends PerformanceTestRunner {
     postGenderPage
     )
 
+  setup("telephone-number-page", "Get/Post telephone number page") withRequests (
+    getTelephoneNumberPage,
+    postTelephoneNumberPage
+    )
+
+  setup("nino-page", "Get/Post nino page") withRequests (
+    getNinoPage,
+    postNinoPage
+    )
+
+  setup("living-abroad-page", "Get/Post living abroad page") withRequests (
+    getLivingAbroadPage,
+    postLivingAbroadPage
+    )
+
   setup("current-address-uk-page", "Get/Post current address uk page") withRequests (
     getCurrentAddressUKPage,
     postCurrentAddressUKPage
@@ -56,20 +71,6 @@ class Simulation extends PerformanceTestRunner {
   setup("previous-address-page", "Get/Post previous address page") withRequests (
     getPreviousAddressPage,
     postPreviousAddressPage
-    )
-  setup("living-abroad-page", "Get/Post living abroad page") withRequests (
-    getLivingAbroadPage,
-    postLivingAbroadPage
-    )
-
-  setup("telephone-number-page", "Get/Post telephone number page") withRequests (
-    getTelephoneNumberPage,
-    postTelephoneNumberPage
-    )
-
-  setup("nino-page", "Get/Post nino page") withRequests (
-    getNinoPage,
-    postNinoPage
     )
 
   setup("married-page", "Get/Post married page") withRequests (

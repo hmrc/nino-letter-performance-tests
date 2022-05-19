@@ -91,7 +91,35 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "preferNotToSay")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/is-your-current-address-in-uk").saveAs("CurrentAddressUK"))
+      .check(header("Location").is(s"$route/what-is-your-telephone-number").saveAs("TelephoneNumber"))
+
+  val getTelephoneNumberPage: HttpRequestBuilder =
+    http("Get Telephone Number Page")
+      .get(s"$baseUrl$${TelephoneNumber}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postTelephoneNumberPage: HttpRequestBuilder =
+    http("Post Telephone Number Page")
+      .post(s"$baseUrl$${TelephoneNumber}": String)
+      .formParam("value", "62442")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is(s"$route/do-you-know-your-national-insurance-number").saveAs("Nino"))
+
+  val getNinoPage: HttpRequestBuilder =
+    http("Get Nino Page")
+      .get(s"$baseUrl$${Nino}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postNinoPage: HttpRequestBuilder =
+    http("Post Nino Page")
+      .post(s"$baseUrl$${Nino}": String)
+      .formParam("value", "false")
+      .formParam("csrfToken", s"$${csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").is(s"$route/are-you-returning-from-living-abroad").saveAs("LivingAbroad"))
 
   val getCurrentAddressUKPage: HttpRequestBuilder =
     http("Get Current Address UK Page")
@@ -134,7 +162,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/are-you-returning-from-living-abroad").saveAs("LivingAbroad"))
+      .check(header("Location").is(s"$route/are-you-in-a-relationship").saveAs("Relationship"))
 
   val getLivingAbroadPage: HttpRequestBuilder =
     http("Get Living Abroad Page")
@@ -148,35 +176,7 @@ object Requests extends ServicesConfiguration {
       .formParam("value", "false")
       .formParam("csrfToken", s"$${csrfToken}")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/what-is-your-telephone-number").saveAs("TelephoneNumber"))
-
-  val getTelephoneNumberPage: HttpRequestBuilder =
-    http("Get Telephone Number Page")
-      .get(s"$baseUrl$${TelephoneNumber}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postTelephoneNumberPage: HttpRequestBuilder =
-    http("Post Telephone Number Page")
-      .post(s"$baseUrl$${TelephoneNumber}": String)
-      .formParam("value", "62442")
-      .formParam("csrfToken", s"$${csrfToken}")
-      .check(status.is(303))
-      .check(header("Location").is(s"$route/do-you-know-your-national-insurance-number").saveAs("Nino"))
-
-  val getNinoPage: HttpRequestBuilder =
-    http("Get Nino Page")
-      .get(s"$baseUrl$${Nino}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postNinoPage: HttpRequestBuilder =
-    http("Post Nino Page")
-      .post(s"$baseUrl$${Nino}": String)
-      .formParam("value", "false")
-      .formParam("csrfToken", s"$${csrfToken}")
-      .check(status.is(303))
-      .check(header("Location").is(s"$route/are-you-in-a-relationship").saveAs("Relationship"))
+      .check(header("Location").is(s"$route/is-your-current-address-in-uk").saveAs("CurrentAddressUK"))
 
   val getMarriedPage: HttpRequestBuilder =
     http("Get Married Or Civil Partnership Number Page")
